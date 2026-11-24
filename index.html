@@ -30,7 +30,6 @@
   .logo{font-weight:800;font-size:18px;text-decoration:none}
   .logo span{color:var(--blue)}
   .head-contacts{display:flex;gap:8px;align-items:center}
-  .head-phone{font-weight:600;text-decoration:none;white-space:nowrap}
 
   /* buttons */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;transition:transform .1s,background .2s}
@@ -40,7 +39,6 @@
   .btn-wa:hover{background:var(--green-dark)}
   .btn-tg{background:#229ed9;color:#fff}
   .btn-tg:hover{background:#1b87ba}
-  .btn-call{background:#fff;color:var(--ink);border:2px solid var(--line)}
   .btn-sm{padding:9px 14px;font-size:14px}
   .btns{display:flex;flex-wrap:wrap;gap:12px}
 
@@ -114,12 +112,15 @@
   .fab svg{width:34px;height:34px}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 
+  /* подсказка с ником */
+  .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:40;max-width:92vw;background:var(--ink);color:#fff;padding:14px 20px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:15px;text-align:center;display:none}
+  .toast.show{display:block}
+
   @media (max-width:860px){
     .hero .wrap,.order{grid-template-columns:1fr}
     .hero-img{order:-1}
     .grid-3,.grid-4{grid-template-columns:1fr 1fr}
     .gallery{grid-template-columns:repeat(3,1fr)}
-    .head-phone{display:none}
     .order{padding:28px 22px}
   }
   @media (max-width:520px){
@@ -134,7 +135,6 @@
   <div class="wrap">
     <a class="logo" href="#top">Размагничиватель<span>.</span></a>
     <div class="head-contacts">
-      <a class="head-phone js-tel" href="#">—</a>
       <a class="btn btn-tg btn-sm js-tg js-tg-nick" href="#" target="_blank" rel="noopener">Telegram</a>
       <a class="btn btn-wa btn-sm js-wa js-wa-nick" href="#" target="_blank" rel="noopener">WhatsApp</a>
     </div>
@@ -160,8 +160,8 @@
           <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg>
           Написать в WhatsApp
         </a>
-        <a class="btn btn-call js-tel" href="#">Позвонить</a>
       </div>
+      <p class="muted" style="margin:12px 0 0">Наш ник в WhatsApp: <b class="js-wa-nick-text"></b></p>
     </div>
     <div class="hero-img"><img src="razmag-1.jpg" alt="Размагничиватель 220 В с сетевым шнуром"></div>
   </div>
@@ -185,7 +185,7 @@
     <p class="muted" style="text-align:center;margin:-10px 0 24px">Реальные фотографии, не картинки из интернета. Нажмите, чтобы увеличить.</p>
     <div class="gallery">
       <button type="button" data-i="0"><img src="razmag-1.jpg" alt="Общий вид" loading="lazy"></button>
-      <button type="button" data-i="1"><img src="razmag-4.jpg" alt="Рабочая сторона с полюсами" loading="lazy"></button>
+      <button type="button" data-i="1"><img src="razmag-4.jpg" alt="Рабочая сторона с квадратным полюсом в центре" loading="lazy"></button>
       <button type="button" data-i="2"><img src="razmag-2.jpg" alt="Вид сбоку" loading="lazy"></button>
       <button type="button" data-i="3"><img src="razmag-3.jpg" alt="Вид сверху" loading="lazy"></button>
       <button type="button" data-i="4"><img src="razmag-5.jpg" alt="Размер в руке" loading="lazy"></button>
@@ -198,7 +198,7 @@
     <h2>Как пользоваться</h2>
     <div class="grid grid-3 steps">
       <div class="card step"><h3>Включите в розетку</h3><p>Прибор готов к работе сразу, прогрев не нужен.</p></div>
-      <div class="card step"><h3>Проведите предмет</h3><p>Приложите предмет к рабочей стороне с металлическими полюсами и медленно уведите в сторону.</p></div>
+      <div class="card step"><h3>Проведите предмет</h3><p>Приложите предмет к металлическому квадратному полюсу в центре рабочей стороны и медленно уведите в сторону.</p></div>
       <div class="card step"><h3>Отключите</h3><p>Выньте вилку из розетки. Не оставляйте прибор включённым надолго.</p></div>
     </div>
   </div>
@@ -210,7 +210,7 @@
     <div class="specs">
       <div><span>Питание</span><b>сеть 220 В, вилка «евро»</b></div>
       <div><span>Размер</span><b>помещается в ладонь</b></div>
-      <div><span>Рабочая сторона</span><b>2 металлических полюса</b></div>
+      <div><span>Рабочая сторона</span><b>металлический квадратный полюс в центре устройства</b></div>
       <div><span>Корпус</span><b>в защитной ПВХ-оболочке</b></div>
       <div><span>Шнур</span><b>с сетевой вилкой</b></div>
     </div>
@@ -234,20 +234,19 @@
     <div class="order">
       <div>
         <h2>Оформить заказ</h2>
-        <p>Заполните форму — откроется наш WhatsApp с готовым текстом заявки. Или просто напишите нам:</p>
+        <p>Заполните форму — текст заявки скопируется и откроется WhatsApp. Найдите нас по нику <b class="js-wa-nick-text"></b> и отправьте заявку. Или просто напишите нам:</p>
         <div class="btns">
           <a class="btn btn-wa js-wa js-wa-nick" href="#" target="_blank" rel="noopener">WhatsApp</a>
           <a class="btn btn-tg js-tg js-tg-nick" href="#" target="_blank" rel="noopener">Telegram</a>
-          <a class="btn btn-call js-tel" href="#">Позвонить</a>
         </div>
       </div>
       <form id="orderForm">
         <input name="name" placeholder="Ваше имя" required autocomplete="name">
-        <input name="phone" placeholder="Телефон для связи" required autocomplete="tel">
+        <input name="phone" placeholder="Телефон или ник для связи" required autocomplete="tel">
         <input name="city" placeholder="Город доставки">
         <textarea name="comment" rows="3" placeholder="Комментарий (количество, вопросы)"></textarea>
         <button class="btn btn-wa" type="submit">Отправить заявку в WhatsApp</button>
-        <p class="note" id="formNote">Данные никуда не сохраняются — заявка откроется в WhatsApp, и вы сами отправляете её нам.</p>
+        <p class="note" id="formNote">Данные никуда не сохраняются — вы сами отправляете заявку нам в WhatsApp.</p>
       </form>
     </div>
   </div>
@@ -263,6 +262,8 @@
   <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg>
 </a>
 
+<div class="toast" id="toast" role="status"></div>
+
 <div class="lightbox" id="lb">
   <button class="lb-btn lb-close" type="button" aria-label="Закрыть">×</button>
   <button class="lb-btn lb-prev" type="button" aria-label="Назад">‹</button>
@@ -273,10 +274,8 @@
 <script>
 /* ======== НАСТРОЙКИ: поменяйте только этот блок ======== */
 var CONFIG = {
-  whatsapp: "boss",          // ник в WhatsApp без @ — его видят на сайте
-  phone:    "77025771749",   // номер WhatsApp, только цифры. На странице НЕ показывается, нужен только чтобы кнопка открывала чат
-  showPhone: false,          // true = показать номер на сайте и кнопку «Позвонить»
-  telegram: "",              // ник в Telegram без @. Пусто = кнопки Telegram скрыты
+  whatsapp: "boss",          // ник в WhatsApp без @. Номер телефона на сайте не используется
+  telegram: "",            // ник в Telegram без @. Пусто = кнопки Telegram скрыты
   price:    "",              // цена, например "1 500 ₽". Пусто = «Цена по запросу»
   priceNote:"",              // мелкий текст рядом с ценой, например "+ доставка"
   message:  "Здравствуйте! Хочу купить размагничиватель."
@@ -284,14 +283,19 @@ var CONFIG = {
 /* ======================================================= */
 
 (function(){
-  var digits = CONFIG.phone.replace(/\D/g,"");
   var nick = CONFIG.telegram.replace(/^@/,"");
   var waNick = CONFIG.whatsapp.replace(/^@/,"");
   var tgBase = "https://t.me/" + nick;
-  var waBase = "https://wa.me/" + digits;
-  var pretty = digits.length === 11
-    ? "+" + digits[0] + " " + digits.substr(1,3) + " " + digits.substr(4,3) + "-" + digits.substr(7,2) + "-" + digits.substr(9,2)
-    : "+" + digits;
+  // без номера: открывает WhatsApp с готовым текстом, чат выбирается поиском по нику
+  var waBase = "https://wa.me/";
+  var toast = document.getElementById("toast"), toastTimer;
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 7000);
+  }
 
   document.querySelectorAll(".js-tg").forEach(function(a){
     if (nick) a.href = tgBase;
@@ -301,16 +305,22 @@ var CONFIG = {
     if (nick) a.textContent = "@" + nick;
   });
   document.querySelectorAll(".js-wa").forEach(function(a){
-    if (digits) a.href = waBase + "?text=" + encodeURIComponent(CONFIG.message);
-    else a.style.display = "none";
+    if (!waNick) { a.style.display = "none"; return; }
+    a.href = waBase + "?text=" + encodeURIComponent(CONFIG.message);
+    a.addEventListener("click", function(){
+      copyText("@" + waNick).then(function(){
+        showToast("Ник @" + waNick + " скопирован. Найдите нас в поиске WhatsApp и отправьте сообщение.");
+      }, function(){
+        showToast("Найдите нас в поиске WhatsApp по нику @" + waNick + ".");
+      });
+    });
   });
   document.querySelectorAll(".js-wa-nick").forEach(function(a){
     if (waNick) a.textContent = "@" + waNick;
   });
-  document.querySelectorAll(".js-tel").forEach(function(a){
-    if (!digits || !CONFIG.showPhone) { a.style.display = "none"; return; }
-    a.href = "tel:+" + digits;
-    if (a.textContent.trim() === "—") a.textContent = pretty;
+  document.querySelectorAll(".js-wa-nick-text").forEach(function(el){
+    if (waNick) el.textContent = "@" + waNick;
+    else el.parentNode.style.display = "none";
   });
   document.querySelector(".js-price").textContent = CONFIG.price || "Цена по запросу";
   document.querySelector(".js-price-note").textContent = CONFIG.priceNote;
@@ -323,13 +333,18 @@ var CONFIG = {
     if (f.city.value) lines.push("Город: " + f.city.value);
     if (f.comment.value) lines.push("Комментарий: " + f.comment.value);
     var text = lines.join("\n");
-    if (digits) {
+    var note = document.getElementById("formNote");
+    if (waNick) {
       var waUrl = waBase + "?text=" + encodeURIComponent(text);
+      copyText(text).then(function(){
+        note.textContent = "Текст заявки скопирован. В WhatsApp найдите нас по нику @" + waNick + " и отправьте заявку.";
+      }, function(){
+        note.textContent = "В WhatsApp найдите нас по нику @" + waNick + " и отправьте заявку.";
+      });
       if (!window.open(waUrl, "_blank")) location.href = waUrl;
       return;
     }
     // Telegram не умеет подставлять текст в личный чат — копируем заявку в буфер
-    var note = document.getElementById("formNote");
     copyText(text).then(function(){
       note.textContent = "Текст заявки скопирован. В открывшемся Telegram вставьте его в чат и отправьте.";
     }, function(){
