@@ -234,7 +234,7 @@
     <div class="order">
       <div>
         <h2>Оформить заказ</h2>
-        <p>Заполните форму — текст заявки скопируется и откроется WhatsApp. Найдите нас по нику <b class="js-wa-nick-text"></b> и отправьте заявку. Или просто напишите нам:</p>
+        <p>Заполните форму — откроется диалог с нами в WhatsApp с готовым текстом заявки, останется нажать «Отправить». Или просто напишите нам:</p>
         <div class="btns">
           <a class="btn btn-wa js-wa js-wa-nick" href="#" target="_blank" rel="noopener">WhatsApp</a>
           <a class="btn btn-tg js-tg js-tg-nick" href="#" target="_blank" rel="noopener">Telegram</a>
@@ -274,7 +274,8 @@
 <script>
 /* ======== НАСТРОЙКИ: поменяйте только этот блок ======== */
 var CONFIG = {
-  whatsapp: "boss",          // ник в WhatsApp без @. Номер телефона на сайте не используется
+  whatsapp: "boss",          // ник в WhatsApp без @ (показывается на странице)
+  waPhone:  "77025771749",   // номер WhatsApp только цифрами. На странице не виден, только внутри кнопок
   telegram: "",            // ник в Telegram без @. Пусто = кнопки Telegram скрыты
   price:    "",              // цена, например "1 500 ₽". Пусто = «Цена по запросу»
   priceNote:"",              // мелкий текст рядом с ценой, например "+ доставка"
@@ -286,16 +287,9 @@ var CONFIG = {
   var nick = CONFIG.telegram.replace(/^@/,"");
   var waNick = CONFIG.whatsapp.replace(/^@/,"");
   var tgBase = "https://t.me/" + nick;
-  // без номера: открывает WhatsApp с готовым текстом, чат выбирается поиском по нику
-  var waBase = "https://wa.me/";
-  var toast = document.getElementById("toast"), toastTimer;
-
-  function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 7000);
-  }
+  var waPhone = CONFIG.waPhone.replace(/\D/g,"");
+  // с номером: сразу открывается диалог с нами и готовым текстом
+  var waBase = "https://wa.me/" + waPhone;
 
   document.querySelectorAll(".js-tg").forEach(function(a){
     if (nick) a.href = tgBase;
@@ -305,15 +299,8 @@ var CONFIG = {
     if (nick) a.textContent = "@" + nick;
   });
   document.querySelectorAll(".js-wa").forEach(function(a){
-    if (!waNick) { a.style.display = "none"; return; }
+    if (!waPhone) { a.style.display = "none"; return; }
     a.href = waBase + "?text=" + encodeURIComponent(CONFIG.message);
-    a.addEventListener("click", function(){
-      copyText("@" + waNick).then(function(){
-        showToast("Ник @" + waNick + " скопирован. Найдите нас в поиске WhatsApp и отправьте сообщение.");
-      }, function(){
-        showToast("Найдите нас в поиске WhatsApp по нику @" + waNick + ".");
-      });
-    });
   });
   document.querySelectorAll(".js-wa-nick").forEach(function(a){
     if (waNick) a.textContent = "@" + waNick;
@@ -334,13 +321,9 @@ var CONFIG = {
     if (f.comment.value) lines.push("Комментарий: " + f.comment.value);
     var text = lines.join("\n");
     var note = document.getElementById("formNote");
-    if (waNick) {
+    if (waPhone) {
       var waUrl = waBase + "?text=" + encodeURIComponent(text);
-      copyText(text).then(function(){
-        note.textContent = "Текст заявки скопирован. В WhatsApp найдите нас по нику @" + waNick + " и отправьте заявку.";
-      }, function(){
-        note.textContent = "В WhatsApp найдите нас по нику @" + waNick + " и отправьте заявку.";
-      });
+      note.textContent = "Открываем WhatsApp — нажмите «Отправить» в диалоге с нами.";
       if (!window.open(waUrl, "_blank")) location.href = waUrl;
       return;
     }
